@@ -1,0 +1,92 @@
+[
+    {
+        "name": "PENGUNDIAN 1",
+        "items":[
+            {
+                "name": "Voucher Indomaret Rp. 150.000",
+                "quantity": 5
+            },
+            {
+                "name": "Powerbank Jete 10.000 mAh",
+                "quantity": 5
+            }
+        ]
+    },
+    {
+        "name": "PENGUNDIAN 2",
+        "items":[
+            {
+                "name": "Voucher Indomaret Rp. 150.000",
+                "quantity": 5
+            },
+            {
+                "name": "Powerbank Jete 10.000 mAh",
+                "quantity": 5
+            },
+            {
+                "name": "Logam Mulia 0,1 gram",
+                "quantity": 5
+            }
+        ]
+    },
+    {
+        "name": "PENGUNDIAN 3",
+        "items":[
+            {
+                "name": "Voucher Indomaret Rp. 150.000",
+                "quantity": 7
+            },
+            {
+                "name": "Logam Mulia 0,1 gram",
+                "quantity": 5
+            },
+            {
+                "name": "Xiaomi Buds 6 lite",
+                "quantity": 4
+            }
+        ]
+    },
+    {
+        "name": "PENGUNDIAN 4",
+        "items":[
+            {
+                "name": "Xiaomi Smart Band 9 active",
+                "quantity": 5
+            },
+            {
+                "name": "Wireless Powerbank Jete 10.000 mAh",
+                "quantity": 5
+            }
+        ]
+    },
+    {
+        "name": "PENGUNDIAN 5",
+        "items":[
+            {
+                "name": "Xiaomi Smart Band 9 active",
+                "quantity": 5
+            },
+            {
+                "name": "⁠4 Voucher MAP Rp. 500.000",
+                "quantity": 4
+            }
+        ]
+    },
+    {
+        "name": "PENGUNDIAN 6",
+        "items":[
+            {
+                "name": "Logam Mulia 0,5 gram",
+                "quantity": 2
+            },
+            {
+                "name": "Logam Mulia 1 gram",
+                "quantity": 2
+            },
+            {
+                "name": "⁠⁠HP samsung Galaxy A25",
+                "quantity": 1
+            }
+        ]
+    }
+]
