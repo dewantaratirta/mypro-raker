@@ -115,6 +115,10 @@ const config = {
 					opacity: 0,
 					},
 				},
+				pulse: {
+					"0%, 100%": { boxShadow: "0 0 0 0 var(--pulse-color)" },
+					"50%": { boxShadow: "0 0 0 8px var(--pulse-color)" },
+				  },
 			},
 		}
 	},

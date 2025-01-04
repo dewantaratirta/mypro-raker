@@ -6,6 +6,10 @@
 	import Logo from '$lib/images/logo.png';
 	import Meteors from '@/lib/components/SpecialEffects/Meteors.svelte';
 	import { onDestroy } from 'svelte';
+	import { resetWinners } from '@/lib/components/store/generatePrizeStore';
+	import Swal from 'sweetalert2';
+	import exportExcel from '@/lib/components/exportxlsx';
+
 
 	let prizeData = getAllPrizes();
 	$: selectedIdPengundian = null;
@@ -37,7 +41,33 @@
 					}}>{prize.name}</Button
 				>
 			{/each}
-			<Button variant="destructive">RESET</Button>
+			<Button variant="destructive" on:click={
+				() => {
+					Swal.fire({
+						title: 'Reset Winners',
+						text: 'Are you sure you want to reset winners?',
+						icon: 'warning',
+						showCancelButton: true,
+						confirmButtonText: 'Yes',
+						cancelButtonText: 'No'
+					}).then((result) => {
+						if (result.isConfirmed) {
+							resetWinners();
+							Swal.fire({
+								title: 'Reset Winners',
+								text: 'Winners has been reset',
+								icon: 'success',
+								confirmButtonText: 'OK'
+							});
+						}
+					});
+				}
+			}>RESET</Button>
+			<Button variant="destructive" class="bg-green-800 hover:bg-green-600" on:click={
+				() => {
+					exportExcel();
+				}
+			}>Download Excel</Button>
 		</div>
 	</div>
 </div>

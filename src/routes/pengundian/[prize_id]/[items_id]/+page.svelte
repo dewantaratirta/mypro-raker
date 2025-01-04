@@ -5,30 +5,47 @@
 	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
 	import Button from '@/lib/components/ui/button/button.svelte';
 	import Meteors from '@/lib/components/SpecialEffects/Meteors.svelte';
-	import GradualSpacing from '@/lib/components/SpecialEffects/GradualSpacing.svelte';
-	import { getRandomPeople } from '@/lib/people';
 	import GeneratePrize from './components/generatePrize.svelte';
-	import { itemIdStore, itemStore, prizeIdStore, prizeStore, stateStore } from '@/lib/components/store/generatePrizeStore';
+	import {
+		getWinners,
+		itemIdStore,
+		itemStore,
+		prizeIdStore,
+		prizeStore,
+		stateStore
+	} from '@/lib/components/store/generatePrizeStore';
 
-	stateStore.set('blank');
+	// onMount(() => {
+	page.subscribe((value) => {
+		console.log('===pagesubscribe')
+		stateStore.set('blank');
 
-	onMount(() => {
-		page.subscribe((value) => {
-			stateStore.set('blank');
+		prizeIdStore.set(parseInt(value.params?.prize_id || 0));
+		itemIdStore.set(parseInt(value.params?.items_id || 0));
 
-			prizeIdStore.set(parseInt(value.params?.prize_id || 0));
-			itemIdStore.set(parseInt(value.params?.items_id || 0));
+		if ($prizeIdStore === undefined || $itemIdStore === undefined) {
+			return;
+		}
+	});
 
-			if ($prizeIdStore === undefined || $itemIdStore === undefined) {
-				return;
-			}
+	itemIdStore.subscribe((value) => {
+		// check if there is any winners
+		let w = getWinners();
+		// stateStore.set('blank');
+		console.log('===itemidstoresubscrive', $stateStore, 'prizeIdStore', $prizeIdStore, 'itemIdStore', $itemIdStore);
+		if (!!w[$prizeIdStore]?.items[$itemIdStore]?.winner) {
+			console.log('>>>>>>>>>>>>>>>>>>',w[$prizeIdStore]?.items[$itemIdStore]?.winner);
+			stateStore.set('result');
+		}
 
-			prizeStore.set(getPrizeById($prizeIdStore));
-			itemStore.set(getItem($prizeIdStore, $itemIdStore));
-		});
+		prizeStore.set(getPrizeById($prizeIdStore));
+		itemStore.set(getItem($prizeIdStore, $itemIdStore));
 	});
 
 	onDestroy(() => {
+		prizeIdStore.set(null);
+		itemIdStore.set(null);
+		// stateStore.set('blank');
 		// page?.unsubscribe();
 	});
 </script>
@@ -36,7 +53,7 @@
 <div class="z-80 flex h-screen flex-col p-24">
 	<Prevnext />
 
-	<div class="flex flex-col items-center justify-center">
+	<div class="mb-12 flex flex-col items-center justify-center">
 		<h2 class="mb-2 text-2xl font-semibold">
 			{$prizeStore?.name}
 		</h2>
@@ -46,10 +63,9 @@
 	</div>
 	<GeneratePrize />
 
-
 	<div class="fixed bottom-0 left-0 w-full bg-black bg-opacity-50 px-24 py-5">
 		<div class="flex">
-			<a href="/">
+			<a data-sveltekit-reload href="/" >
 				<Button variant="outline" class="border-white bg-transparent">
 					<i class="fa-solid fa-house me-2 text-white"></i>
 					BACK</Button

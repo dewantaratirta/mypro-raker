@@ -1,4 +1,4 @@
-import { getRandomPeople } from '@/lib/people';
+import { getAllPeople, getRandomPeople } from '@/lib/people';
 import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
 import { getAllPrizes } from '@/lib/prizes';
@@ -14,7 +14,6 @@ export const winnerStore = writable([]);
 
 export const winnerNameGet = () => {
     if(!browser) return [];
-    console.log(browser)
     let x = localStorage?.getItem('winnerName');
     if(!x){
         localStorage?.setItem('winnerName', JSON.stringify([]));
@@ -33,9 +32,13 @@ export const winnerNameSet = (names) => {
 export const getAvailablePeople = () => {
     let winnername = winnerNameGet();
     if(winnername.length == 0){
-        return getRandomPeople(50);
+        return getAllPeople();
     }
-    return winnername;
+    let all = getAllPeople();
+    //filter all people that are not in winnername
+    let winnerid = winnername.map(x => x.id);
+    let available = all.filter(item => !winnerid.includes(item.id));
+    return available;
 }
 
 export const getWinners = () => {
@@ -54,4 +57,12 @@ export const setWinners = (prizeid, itemsid, winners) => {
     let x = getWinners();
     x[prizeid].items[itemsid].winner = winners;
     localStorage?.setItem('winners', JSON.stringify(x));
+};
+
+
+export const resetWinners = () => {
+    if(!browser) return;
+    let x = getAllPrizes();
+    localStorage?.setItem('winners', JSON.stringify(x));
+    localStorage?.setItem('winnerName', JSON.stringify([]));
 };
